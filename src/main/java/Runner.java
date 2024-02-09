@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class Runner {
-    public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) throws SQLException {
         String SQL_SELECT = "Select * from MOBL_TBL";
         List<MoblEntity> moblEntities = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(
@@ -87,7 +87,7 @@ public class Runner {
                 "metakeywords)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://192.168.1.100:5432/postgres?currentSchema=furnitore", "postgres", "ali680313");
+                "jdbc:postgresql://192.168.1.100:5432/postgres", "postgres", "ali680313");
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             moblEntities.forEach(p->{
 
@@ -137,4 +137,66 @@ public class Runner {
 
         }
     }
+/*public static void main(String[] args) throws SQLException {
+    String SQL_SELECT = "Select * from PRODUCT_TBL";
+    List<ProductEntity> productEntities = new ArrayList<>();
+    try (Connection conn = DriverManager.getConnection(
+            "jdbc:postgresql://49.13.85.91:5432/tehcfu", "postgres2", "ali680313");
+         PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT)) {
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+                ProductEntity moblEntity = new ProductEntity();
+                moblEntity.setBrand(resultSet.getString("abad"));
+                moblEntity.setContry(resultSet.getString("contry"));
+                moblEntity.setDescription(resultSet.getString("description"));
+                moblEntity.setNameCode(resultSet.getString("namecode"));
+                moblEntity.setPic1(resultSet.getString("pic1"));
+                moblEntity.setPic2(resultSet.getString("pic2"));
+                moblEntity.setPic3(resultSet.getString("pic3"));
+                moblEntity.setPic4(resultSet.getString("pic4"));
+                moblEntity.setPic5(resultSet.getString("pic5"));
+                moblEntity.setRaste(resultSet.getString("raste"));
+                moblEntity.setZemanat(resultSet.getString("zemanat"));
+                productEntities.add(moblEntity);
+        }
+    }
+    String sql = "INSERT INTO product(size, country,description," +
+            "guaranty," +
+            "name," +
+            " pic1," +
+            "pic2,"+
+            "pic3," +
+            "pic4," +
+            "pic5," +
+            "raste)"
+            + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    try (Connection conn = DriverManager.getConnection(
+            "jdbc:postgresql://192.168.1.100:5432/postgres", "postgres", "ali680313");
+         PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        productEntities.forEach(p->{
+
+
+            try {
+                preparedStatement.setString(1, p.getAbad());
+                preparedStatement.setString(2, p.getContry());
+                preparedStatement.setString(3, p.getDescription());
+                preparedStatement.setString(4, p.getZemanat());
+                preparedStatement.setString(5, p.getNameCode());
+                preparedStatement.setString(6, p.getPic1());
+                preparedStatement.setString(7, p.getPic2());
+                preparedStatement.setString(8, p.getPic3());
+                preparedStatement.setString(9, p.getPic4());
+                preparedStatement.setString(10, p.getPic5());
+                preparedStatement.setString(11, p.getRaste());
+                int insertedRow = preparedStatement.executeUpdate();
+                System.out.println("inserted");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+    }
+}*/
 }
